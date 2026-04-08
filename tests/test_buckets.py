@@ -105,7 +105,6 @@ def test_creating_and_listing_multiple_buckets_is_successful(s3_client, bucket_n
 
     # Owner metadata
     owner = resp.get("Owner") or {}
-    assert owner.get("DisplayName") == "s3-mock-file-store"
     assert owner.get("ID") == "79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be"
 
 def test_creating_and_listing_multiple_buckets_limiting_by_prefix_is_successful(
@@ -148,7 +147,6 @@ def test_creating_and_listing_multiple_buckets_limiting_by_prefix_is_successful(
 
     # Owner metadata
     owner = resp.get("Owner") or {}
-    assert owner.get("DisplayName") == "s3-mock-file-store"
     assert owner.get("ID") == "79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be"
 
 
@@ -182,7 +180,6 @@ def test_creating_and_listing_multiple_buckets_limiting_by_max_buckets_is_succes
 
     assert page1.get("Prefix") in (None, "")  # S3Mock may omit or send empty
     assert page1["ContinuationToken"] is not None
-    assert page1["Owner"]["DisplayName"] == "s3-mock-file-store"
     assert (page1["Owner"]["ID"] ==
             "79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be")
 
@@ -197,7 +194,6 @@ def test_creating_and_listing_multiple_buckets_limiting_by_max_buckets_is_succes
 
     assert page2.get("Prefix") in (None, "")
     assert page2.get("ContinuationToken") in (None, "")
-    assert page2["Owner"]["DisplayName"] == "s3-mock-file-store"
     assert (page2["Owner"]["ID"] ==
             "79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be")
 

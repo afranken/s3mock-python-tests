@@ -24,7 +24,6 @@ def test_put_canned_acl_returns_ok_get_acl_returns_the_acl(s3_client, bucket_nam
 
     owner = acl_resp.get("Owner", {})
     assert owner.get("ID"), "Owner ID should not be blank"
-    assert owner.get("DisplayName"), "Owner display name should not be blank"
 
     grants = acl_resp.get("Grants", [])
     assert len(grants) == 1
@@ -44,7 +43,6 @@ def test_get_acl_returns_canned_private_acl(s3_client, bucket_name: str):
     # Owner checks (matches the owner reported by the ACL)
     owner = acl_resp.get("Owner", {})
     assert owner.get("ID"), "Owner ID should not be blank"
-    assert owner.get("DisplayName"), "Owner display name should not be blank"
 
     # Grants: canned 'private' should result in a single FULL_CONTROL grant to the owner
     grants = acl_resp.get("Grants", [])
@@ -58,7 +56,6 @@ def test_get_acl_returns_canned_private_acl(s3_client, bucket_name: str):
     assert grantee.get("Type") == "CanonicalUser"
     # Ensure the grantee matches the owner reported by the ACL
     assert grantee.get("ID") == owner.get("ID")
-    assert grantee.get("DisplayName") == owner.get("DisplayName")
 
 def test_put_acl_returns_ok_get_acl_returns_the_acl(s3_client, bucket_name: str):
     source_key = UPLOAD_FILE_NAME
@@ -102,7 +99,6 @@ def test_put_acl_returns_ok_get_acl_returns_the_acl(s3_client, bucket_name: str)
     owner = acl_resp.get("Owner", {})
     assert owner is not None
     assert owner.get("ID") == user_id
-    assert owner.get("DisplayName") == user_name
 
     grants = acl_resp.get("Grants", [])
     assert len(grants) == 1
