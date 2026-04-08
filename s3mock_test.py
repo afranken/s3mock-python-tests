@@ -38,7 +38,7 @@ PREFIX = "prefix"
 PAYLOAD_MAX_SIZE = "100MB"
 
 container = (
-    DockerContainer("adobe/s3mock:4.11.0")
+    DockerContainer("adobe/s3mock:4.12.4")
     .with_exposed_ports(9090, 9191)
     .with_env("debug", "true")
     # Increase various limits to allow large payload testing, see test_presigned_urls.py
