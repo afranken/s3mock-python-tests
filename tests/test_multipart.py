@@ -14,7 +14,6 @@ from s3mock_test import (
     given_bucket,
     hex_digest,
     multipart_crc32_checksum,
-    multipart_crc64nvme_checksum,
     multipart_etag_hex,
     upload_file_bytes,
 )
@@ -220,7 +219,8 @@ def test_multipart_upload_with_checksum_type_full_object(
     body = upload_file_bytes()
     parts = [body]
     expected_length = len(body)
-    expected_checksum = multipart_crc64nvme_checksum(parts)
+    # FULL_OBJECT returns the checksum of the assembled object, not multipart composite form.
+    expected_checksum = crc64nvme_b64(body)
     expected_etag = f'"{multipart_etag_hex(parts)}"'
 
     # Initiate multipart upload with FULL_OBJECT checksum type

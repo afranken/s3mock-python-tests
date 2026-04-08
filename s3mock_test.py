@@ -38,7 +38,7 @@ PREFIX = "prefix"
 PAYLOAD_MAX_SIZE = "100MB"
 
 container = (
-    DockerContainer("adobe/s3mock:4.12.4")
+    DockerContainer("adobe/s3mock:5.0.0")
     .with_exposed_ports(9090, 9191)
     .with_env("debug", "true")
     # Increase various limits to allow large payload testing, see test_presigned_urls.py
@@ -47,8 +47,8 @@ container = (
     .with_env("SERVER_TOMCAT_MAX_HTTP_FORM_POST_SIZE", PAYLOAD_MAX_SIZE)
     .with_env("SPRING_SERVLET_MULTIPART_MAX_FILE_SIZE", PAYLOAD_MAX_SIZE)
     .with_env("SPRING_SERVLET_MULTIPART_MAX_REQUEST_SIZE", PAYLOAD_MAX_SIZE)
-    .with_env("COM_ADOBE_TESTING_S3MOCK_DOMAIN_INITIAL_BUCKETS", "bucket-a, bucket-b")
-    .with_env("COM_ADOBE_TESTING_S3MOCK_DOMAIN_VALID_KMS_KEYS",
+    .with_env("COM_ADOBE_TESTING_S3MOCK_STORE_INITIAL_BUCKETS", "bucket-a, bucket-b")
+    .with_env("COM_ADOBE_TESTING_S3MOCK_STORE_VALID_KMS_KEYS",
               "arn:aws:kms:us-east-1:1234567890:key/valid-test-key-id")
 )
 
